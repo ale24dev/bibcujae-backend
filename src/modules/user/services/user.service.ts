@@ -3,7 +3,6 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import * as fs from 'fs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { UserDto } from '../dto/user.dto';
