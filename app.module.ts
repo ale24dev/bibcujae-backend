@@ -6,6 +6,7 @@ import { UserModule } from './src/modules/user/user.module';
 import { typeOrmConfig } from './src/database/typeOrmConfig/typeorm.config';
 import { ImageModule } from 'src/modules/images/image.module';
 import { BookModule } from 'src/modules/book/book.module';
+import { MateriaModule } from 'src/modules/materia/materia.module';
 
 
 @Module({
@@ -19,9 +20,10 @@ import { BookModule } from 'src/modules/book/book.module';
     AuthModule,
     UserModule,
     ImageModule,
-    BookModule
+    BookModule,
+    MateriaModule
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
