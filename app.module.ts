@@ -6,7 +6,7 @@ import { UserModule } from './src/modules/user/user.module';
 import { ImageModule } from 'src/modules/images/image.module';
 import { BookModule } from 'src/modules/documents/book/book.module';
 import { typeOrmConfig } from './src/database/typeOrmConfig/typeorm.config';
-import { MateriaModule } from 'src/modules/materia/materia.module';
+import { MateriaModule } from 'src/modules/documents/materia/materia.module';
 
 
 @Module({
