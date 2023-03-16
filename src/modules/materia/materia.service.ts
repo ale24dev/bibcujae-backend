@@ -1,0 +1,36 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateMateriaDto } from './dto/create-materia.dto';
+import { UpdateMateriaDto } from './dto/update-materia.dto';
+import { MateriaRepository } from './materia.repository';
+
+@Injectable()
+export class MateriaService {
+
+  @InjectRepository(MateriaRepository)
+  private readonly materiaRepository: MateriaRepository;
+
+  create(createMateriaDto: CreateMateriaDto) {
+    return 'This action adds a new materia';
+  }
+
+  async findAll() {
+    return await this.materiaRepository.findAll();
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} materia`;
+  }
+
+  async searchByName(name: string) {
+    return await this.materiaRepository.searchByName(name);
+  }
+
+  update(id: number, updateMateriaDto: UpdateMateriaDto) {
+    return `This action updates a #${id} materia`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} materia`;
+  }
+}
