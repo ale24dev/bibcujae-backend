@@ -13,8 +13,10 @@ export class MateriaRepository extends Repository<MateriaEntity> {
 
     async searchByName(name: string): Promise<MateriaEntity[]> {
         const materias = await this.findAll();
-        return materias.filter(materia => materia.name.toLowerCase().includes(name.toLowerCase().trim()));
-      }
+        const matResult = materias.filter(materia => materia.name.toLowerCase().includes(name.toLowerCase().trim()));
+        const sort = matResult.sort((materiaA, materiaB) => materiaA.name.localeCompare(materiaB.name));
+        return sort;
+    }
 
     async createMateria(materia: MateriaEntity): Promise<MateriaEntity> {
         return this.save(materia);

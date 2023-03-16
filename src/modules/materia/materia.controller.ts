@@ -17,15 +17,14 @@ export class MateriaController {
     return this.materiaService.findAll();
   }
 
-  @Get('/name/:req')
-  searchByName(@Param('req') name: string) {
-    console.log("nerrew");
+  @Get('/id/:id')
+  findOne(@Param('id') id: string) {
+    return this.materiaService.findOne(+id);
+  }
+  @Get('/name')
+  searchByName(@Query('name') name: string) {
     return this.materiaService.searchByName(name);
   }
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.materiaService.findOne(+id);
-  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMateriaDto: UpdateMateriaDto) {
