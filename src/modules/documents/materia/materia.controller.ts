@@ -3,7 +3,7 @@ import { MateriaService } from './materia.service';
 import { CreateMateriaDto } from './dto/create-materia.dto';
 import { UpdateMateriaDto } from './dto/update-materia.dto';
 
-@Controller('materia')
+@Controller('document/materia')
 export class MateriaController {
   constructor(private readonly materiaService: MateriaService) { }
 
@@ -13,17 +13,17 @@ export class MateriaController {
   }
 
   @Get()
-  findAll() {
-    return this.materiaService.findAll();
+  async findAll() {
+    return await this.materiaService.findAll();
   }
 
   @Get('/id/:id')
-  findOne(@Param('id') id: string) {
-    return this.materiaService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.materiaService.findOne(+id);
   }
   @Get('/name')
-  searchByName(@Query('name') name: string) {
-    return this.materiaService.searchByName(name);
+  async searchByName(@Query('name') name: string) {
+    return await this.materiaService.searchByName(name);
   }
 
   @Patch(':id')

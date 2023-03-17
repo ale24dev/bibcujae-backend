@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { MateriaLibroEntity } from '../../materia-libro/entities/materia-libro.entity';
 
 @Entity({ name: "xlibro" })
 export class BookEntity {
@@ -79,4 +80,7 @@ export class BookEntity {
 
     @Column({ nullable: true })
     pais: string;
+
+    @OneToMany(() => MateriaLibroEntity, xmateriaLibro => xmateriaLibro.book)
+    xmateriaLibros: MateriaLibroEntity[];
 }

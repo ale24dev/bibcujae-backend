@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { MateriaLibroEntity } from "../../materia-libro/entities/materia-libro.entity";
 
 @Entity({ name: "xmateria" })
 export class MateriaEntity {
@@ -8,4 +9,7 @@ export class MateriaEntity {
 
     @Column({ nullable: false, length: "MAX" })
     name: string;
+
+    @OneToMany(() => MateriaLibroEntity, xmateriaLibro => xmateriaLibro.materia)
+    xmateriaLibros: MateriaLibroEntity[];
 }

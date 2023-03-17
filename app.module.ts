@@ -7,6 +7,7 @@ import { ImageModule } from 'src/modules/images/image.module';
 import { BookModule } from 'src/modules/documents/book/book.module';
 import { typeOrmConfig } from './src/database/typeOrmConfig/typeorm.config';
 import { MateriaModule } from 'src/modules/documents/materia/materia.module';
+import { MateriaLibroModule } from './src/modules/documents/materia-libro/materia-libro.module';
 
 
 @Module({
@@ -21,7 +22,8 @@ import { MateriaModule } from 'src/modules/documents/materia/materia.module';
     UserModule,
     ImageModule,
     BookModule,
-    MateriaModule
+    MateriaModule,
+    MateriaLibroModule
   ],
   controllers: [],
   providers: [],

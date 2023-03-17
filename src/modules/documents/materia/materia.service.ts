@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMateriaDto } from './dto/create-materia.dto';
 import { UpdateMateriaDto } from './dto/update-materia.dto';
@@ -18,8 +18,13 @@ export class MateriaService {
     return await this.materiaRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} materia`;
+  async findOne(id: number) {
+    const materia = await this.materiaRepository.findOne({ where: { materiaId: id } });
+
+    if (!materia) {
+      throw new NotFoundException(`No se encontró ningúna materia con id: ${id}`);
+    }
+    return materia;
   }
 
   async searchByName(name: string) {
