@@ -4,10 +4,13 @@ import {
   Unique,
   OneToMany,
   PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { RoleEntity } from '../role/role.entity';
 
-@Entity({ name: 'xuser' })
+@Entity({ name: 'xxuser' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id_user: number;
@@ -23,6 +26,10 @@ export class UserEntity {
   
   @Column({ nullable: false })
   salt: string;
+
+  @ManyToMany(type => RoleEntity, role => role.users, { eager: true })
+  @JoinTable({ name: 'user_roles' })
+  roles: RoleEntity[];
   
   constructor(
     username: string,

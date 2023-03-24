@@ -1,4 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport/dist/auth.guard';
+import { Roles } from 'src/common/decorators/role.decorator';
+import { RolesGuard } from 'src/common/guards/role.guard';
 
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -72,6 +75,8 @@ export class BookController {
     return books;
   }
   @Get()
+  @Roles('ADMIN')
+  @UseGuards(AuthGuard(), RolesGuard)
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
