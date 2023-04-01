@@ -10,8 +10,8 @@ router.register(r'book', BookViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/document/book/all', getAllBooks, name='get-all-books'),
-    path('api/document/book/filter/', getBookWithFilter, name='get-books-with-filter'),
-    path('api/document/book/domCode/<str:domCode>', getBookByDomCode, name='get-by-domCode'),
     path('api/document/book/create', createBook, name='create-book'),
     path('api/document/book/update/<int:id>', updateBook, name='update-book'),
+    path('api/document/book/filter/', getBookWithFilter, name='get-books-with-filter'),
+    path('api/document/book/domCode/<str:domCode>', getBookByDomCode, name='get-by-domCode'),
 ]

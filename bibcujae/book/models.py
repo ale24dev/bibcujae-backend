@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Book(models.Model):
     libro_id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255, null=True)
@@ -90,31 +89,6 @@ def bookFromJson(json_data):
         clasif=json_data.get('clasif'),
         idioma=json_data.get('idioma'),
         pais=json_data.get('pais')
-        # titulo=json_data['titulo'],
-        # entrada=json_data['entrada'],
-        # tipo_autor=json_data['tipo_autor'],
-        # autor=json_data['autor'],
-        # otros_autores=json_data['otros_autores'],
-        # edicion=json_data['edicion'],
-        # serie=json_data['serie'],
-        # notas=json_data['notas'],
-        # anno_pub=json_data['anno_pub'],
-        # mencion_resp=json_data['mencion_resp'],
-        # cod_domicilio=json_data['cod_domicilio'],
-        # isbn=json_data['isbn'],
-        # dewey=json_data['dewey'],
-        # evento=json_data['evento'],
-        # otros_eventos=json_data['otros_eventos'],
-        # publicacion=json_data['publicacion'],
-        # colacion=json_data['colacion'],
-        # otros_titulos=json_data['otros_titulos'],
-        # folleto=json_data['folleto'],
-        # referencia=json_data['referencia'],
-        # letras_ent=json_data['letras_ent'],
-        # letra_titulo=json_data['letra_titulo'],
-        # clasif=json_data['clasif'],
-        # idioma=json_data['idioma'],
-        # pais=json_data['pais']
     )
     return book
 
