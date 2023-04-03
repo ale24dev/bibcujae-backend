@@ -20,7 +20,6 @@ def getAllBooks(request):
 @permission_classes([AllowAny])
 def getBookWithFilter(request):
     if request.method == 'GET':
-        print("requesttttttttttttttttttttttt")
         filtro = parseParams(request)
 
        # Construir la consulta de filtrado
