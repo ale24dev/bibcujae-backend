@@ -12,6 +12,9 @@ urlpatterns = [
     path('api/document/book/all', getAllBooks, name='get-all-books'),
     path('api/document/book/create', createBook, name='create-book'),
     path('api/document/book/update/<int:id>', updateBook, name='update-book'),
-    path('api/document/book/filter/', getBookWithFilter, name='get-books-with-filter'),
-    path('api/document/book/domCode/<str:domCode>', getBookByDomCode, name='get-by-domCode'),
+    path('api/document/book/filter/', getBookWithFilter, name='write-in-excel'),
+    path('api/document/book/writeInExcel/',
+         writeInExcel, name='get-books-with-filter'),
+    path('api/document/book/domCode/<str:domCode>',
+         getBookByDomCode, name='get-by-domCode'),
 ]

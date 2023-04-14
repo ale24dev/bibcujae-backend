@@ -1,19 +1,63 @@
+import io
 import json
+import barcode
 from django.db.models import Q
+from django.http import HttpResponse
+from barcode.writer import ImageWriter
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
+from django.http import JsonResponse, HttpResponse
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 
 from .models import Book, bookFromJson, parseParams
+from book.utils import customPagination, writeJsonToExcel
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def getAllBooks(request):
-    if request.method == 'GET':
-        books = Book.objects.all()
-        books_list = [book.to_dict() for book in books]
-        return Response(books_list)
+    # Set the number of items per page
+    items_per_page = request.query_params.get('items')
+
+    # Get the requested page number from the request query parameters
+    page_number = request.query_params.get('page')
+
+    # Get all the books from the database, ordered by id
+    books = Book.objects.order_by('libro_id')
+
+    # Paginate the results using the custom pagination class
+    paginator = customPagination()
+    paginator.page_size = items_per_page
+    paginated_books = paginator.paginate_queryset(books, request)
+
+    # Serialize the paginated books
+    books_list = [book.to_dict() for book in paginated_books]
+
+    # Return the serialized books with pagination metadata
+    return paginator.get_paginated_response(books_list)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def writeInExcel(request):
+    if request.method == 'POST':
+
+        json_data = json.loads(request.body)
+        data = request.body.decode('utf-8')
+        json_data = json.loads(data)
+
+        # for item in json_data:
+        #     book = bookFromJson(item)
+        #     book_dict = book.to_dict()
+        # write_json_to_excel(book_dict, output_file)
+        # write_json_to_excel(json_data, output_file)
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="data.xlsx"'
+        writeJsonToExcel(json_data, response)
+        return response
 
 
 @api_view(['GET'])
@@ -50,9 +94,8 @@ def createBook(request):
 
     if request.method == 'POST':
         book = bookFromJson(data)
-        book_dict = book.to_dict()
         book.save()
-    return Response(book_dict)
+    return Response("El libro ha sido creado correctamente")
 
 
 @api_view(['PATCH'])
@@ -69,6 +112,42 @@ def updateBook(request, id):
                 setattr(book, attr, value)
 
         book.save()
-        
+
     book_dict = book.to_dict()
     return Response(book_dict)
+
+
+def generateBarcode(value):
+    # Crear un objeto de código de barras EAN-13
+    ean = barcode.get('ean13', value)
+
+    # Guardar el código de barras como una imagen en un objeto BytesIO
+    buffer = io.BytesIO()
+    ean.write(buffer, writer=ImageWriter())
+
+    # Devolver el valor del código de barras y la imagen
+    return value, buffer.getvalue()
+
+
+def barCodeView(request, value):
+    # Generar el código de barras
+    codeValue, codeImage = generateBarcode(value)
+
+    # Crear una respuesta JSON que contenga el valor del código y la imagen
+    response = {
+        'codeValue': codeValue,
+        'codeImage': codeImage
+    }
+    return JsonResponse(response)
+
+
+def barcodeImageView(request, valor):
+    # Generar el código de barras
+    valor_codigo, imagen_codigo = barCodeView(valor)
+
+    # Devolver la imagen como un archivo PNG
+    response = HttpResponse(content_type='image/png')
+    response['Content-Disposition'] = f'attachment; filename="{valor_codigo}.png"'
+    imagen_buffer = io.BytesIO(imagen_codigo)
+    response.write(imagen_buffer.getvalue())
+    return response

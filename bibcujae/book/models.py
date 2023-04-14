@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Book(models.Model):
     libro_id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255, null=True)
@@ -27,6 +28,23 @@ class Book(models.Model):
     clasif = models.CharField(max_length=255, null=True)
     idioma = models.CharField(max_length=255, null=True)
     pais = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        db_table = "book"
+
+    # def save(self, *args, **kwargs):
+    #     # Generar el código único de 13 dígitos
+    #     codigo_generado = str(random.randint(1000000000000, 9999999999999))
+
+    #     # Validar que el código generado no exista ya en la base de datos
+    #     while Book.objects.filter(barCo=codigo_generado).exists():
+    #         codigo_generado = str(random.randint(1000000000000, 9999999999999))
+
+    #     # Asignar el código generado al objeto Libro
+    #     self.codigo = codigo_generado
+
+    #     # Llamar al método save del modelo padre para guardar el objeto en la base de datos
+    #     super(Libro, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.titulo
