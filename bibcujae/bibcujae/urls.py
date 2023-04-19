@@ -7,5 +7,6 @@ urlpatterns = [
     path('', include('materia.urls')),
     path('', include('materiaLibros.urls')),
     path('', include('authentication.urls')),
+    path('', include('ejemplares.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]

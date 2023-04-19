@@ -7,12 +7,12 @@ from materia.models import Materia
 
 
 class MateriaLibros(models.Model):
-    materiaLibro_id = models.AutoField(primary_key=True)
+    materialibro_id = models.AutoField(primary_key=True)
     materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
     libro = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "materiaLibros"
+        db_table = "materia_libros"
 
     def to_dict(self):
         materia = json.loads(serialize(
@@ -24,7 +24,7 @@ class MateriaLibros(models.Model):
         book["fields"]["libro_id"] = book["pk"]
 
         return {
-            'materiaLibro_id': self.materiaLibro_id,
+            'materiaLibro_id': self.materialibro_id,
             'materia': materia["fields"],
             'libro': book["fields"],
         }

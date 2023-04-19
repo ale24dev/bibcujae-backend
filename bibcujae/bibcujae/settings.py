@@ -60,9 +60,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'book',
     'materia',
-    'materiaLibro',
     'materiaLibros',
     'authentication',
+    'ejemplares',
     'rest_framework_simplejwt'
 ]
 

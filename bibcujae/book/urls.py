@@ -16,5 +16,4 @@ urlpatterns = [
     path('api/document/book/writeInExcel/',
          writeInExcel, name='get-books-with-filter'),
     path('api/document/book/domCode/<str:domCode>',
-         getBookByDomCode, name='get-by-domCode'),
-]
+         getBookByDomCode, name='get-by-domCode'),]
