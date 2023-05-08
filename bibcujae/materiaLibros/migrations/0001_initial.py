@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('materia', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='materia.materia')),
             ],
             options={
-                'db_table': 'materiaLibros',
+                'db_table': 'materia_libros',
             },
         ),
     ]

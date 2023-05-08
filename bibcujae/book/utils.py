@@ -1,7 +1,7 @@
-import json
 from openpyxl import Workbook
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+
 
 def writeJsonToExcel(data, output_file):
     # Parse the JSON data
@@ -23,6 +23,13 @@ def writeJsonToExcel(data, output_file):
 
     # Save the workbook to the specified output file
     wb.save(output_file)
+
+
+def validateFilters(sf):
+    if sf['category'] == 'anno_pub' and sf['option'] not in ['greater_than', 'less_than', 'range', 'exact']:
+        return "Las opciones para la regla 'Año de publicación' deben ser 'antes de', 'después de' o 'entre'."
+    if sf['category'] != 'anno_pub' and sf['option'] in ['greater_than', 'less_than', 'range']:
+        return "Las opciones 'antes de', 'después de' o 'entre' solo se permiten para la categoría 'Año de publicación.'"
 
 
 class customPagination(PageNumberPagination):

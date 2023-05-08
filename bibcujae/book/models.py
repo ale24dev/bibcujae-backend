@@ -165,6 +165,6 @@ def parseParams(request):
         'letra_titulo': letra_titulo,
         'clasif': clasif,
         'idioma': idioma,
-        'pais': pais,
+        'pais': pais
     }
     return bookParsed
